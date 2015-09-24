@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+
+<izpack:shortcuts version="5.0"
+                  xmlns:izpack="http://izpack.org/schema/shortcuts"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://izpack.org/schema/shortcuts http://izpack.org/schema/5.0/izpack-shortcuts-5.0.xsd">
+
+
+    <skipIfNotSupported/>
+
+    <programGroup defaultName="Eclipse Che ${project.version}" location="applications"/>
+
+
+    <shortcut
+            name="Eclipse Che (start)"
+            programGroup="yes"
+            desktop="yes"
+            applications="no"
+            startMenu="no"
+            startup="no"
+            target="$INSTALL_PATH\bin\che.bat"
+            commandLine="run"
+            description="Starts $APP_NAME $APP_VER">
+    </shortcut>
+
+
+    <shortcut
+            name="Eclipse Che (stop)"
+            programGroup="yes"
+            desktop="yes"
+            applications="no"
+            startMenu="no"
+            startup="no"
+            target="$INSTALL_PATH\bin\che.sh"
+            commandLine="stop"
+            description="Stop $APP_NAME $APP_VER">
+    </shortcut>
+
+    <shortcut
+            name="Documentation"
+            programGroup="yes"
+            desktop="no"
+            applications="no"
+            startMenu="yes"
+            startup="no"
+            target="firefox"
+            commandLine="http://www.eclipse.org/che"
+            workingDirectory=""
+            description="Eclipse Che Documentation"
+            type="Application"
+            terminal="false"
+            url="http://www.eclipse.org/che"
+            />
+
+
+</izpack:shortcuts>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2015 Codenvy, S.A.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+
+    Contributors:
+      Codenvy, S.A. - initial API and implementation
+
+-->
+<izpack:installation version="5.0"
+                     xmlns:izpack="http://izpack.org/schema/installation"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
+
+    <!-- The info section -->
+    <info>
+        <appname>Eclipse Che</appname>
+        <appversion>@eclipse-che.version</appversion>
+        <!-- Allow to install several versions -->
+        <appsubpath>eclipse-che-$APP_VER</appsubpath>
+        <url>https://www.eclipse.org/che/</url>
+        <javaversion>1.8</javaversion>
+        <requiresjdk>no</requiresjdk>
+        <run-privileged condition="izpack.windowsinstall"/>
+        <summarylogfilepath>$INSTALL_PATH/installinfo/Summary.htm</summarylogfilepath>
+    </info>
+
+    <variables>
+        <variable name="DesktopShortcutCheckboxEnabled" value="true"/>
+        <variable name="ApplicationShortcutPath" value="ApplicationShortcuts"/>
+        <variable name="TargetPanel.dir.windows" value="C:\eclipse-che\$APP_VER"/>
+        <variable name="TargetPanel.dir.unix" value="/usr/local/eclipse-che-$APP_VER"/>
+    </variables>
+
+
+    <!-- GUI preferences -->
+    <guiprefs width="600" height="480" resizable="no">
+        <modifier key="useButtonIcons" value="no"/>
+        <modifier key="useLabelIcons" value="no"/>
+        <modifier key="labelGap" value="2"/>
+        <modifier key="layoutAnchor" value="NORTHWEST"/>
+        <modifier key="useHeadingPanel" value="yes"/>
+        <modifier key="headingImageOnLeft" value="yes"/>
+        <modifier key="headingLineCount" value="1"/>
+        <modifier key="headingFontSize" value="1.5"/>
+        <modifier key="headingBackgroundColor" value="0x00ffffff"/>
+        <modifier key="headingPanelCounter" value="text"/>
+        <modifier key="headingPanelCounterPos" value="inHeading"/>
+    </guiprefs>
+
+    <!-- We include every langpack -->
+    <locale>
+        <langpack iso3="eng"/>
+        <langpack iso3="fra"/>
+        <langpack iso3="deu"/>
+        <langpack iso3="ita"/>
+        <langpack iso3="jpn"/>
+        <langpack iso3="spa"/>
+        <langpack iso3="dan"/>
+        <langpack iso3="ell"/>
+        <langpack iso3="cat"/>
+        <langpack iso3="nld"/>
+        <langpack iso3="fin"/>
+        <langpack iso3="swe"/>
+        <langpack iso3="prt"/>
+        <langpack iso3="pol"/>
+        <langpack iso3="rus"/>
+        <langpack iso3="ukr"/>
+        <langpack iso3="hun"/>
+        <langpack iso3="slk"/>
+        <langpack iso3="ron"/>
+        <langpack iso3="msa"/>
+        <langpack iso3="nor"/>
+        <langpack iso3="chn"/>
+        <langpack iso3="srp"/>
+        <langpack iso3="ces"/>
+        <langpack iso3="kor"/>
+        <langpack iso3="glg"/>
+    </locale>
+
+    <!-- The resources needed by the various panels -->
+    <resources>
+        <res id="HTMLLicencePanel.licence" src="license.html" />
+        <res id="HTMLInfoPanel.info" src="install-readme.html"/>
+
+        <res id="installer.langsel.img" src="splash-logo.png" />
+        <res id="Unix_shortcutSpec.xml" src="Unix_shortcutSpec.xml" />
+        <res id="shortcutSpec.xml" src="Windows_shortcutSpec.xml" />
+
+
+        <res id="customicons.xml" src="customIcons.xml"/>
+        <res id="packsLang.xml" src="packsLang.xml"/>
+
+        <res src="info-border.png" id="Installer.image.0"/>
+        <res src="info-border.png" id="Installer.image.hellopanel"/>
+        <res src="info-border.png" id="Installer.image.infopanel"/>
+        <res src="info-border.png" id="Installer.image.licensepanel"/>
+        <res src="info-border.png" id="Installer.image.targetpanel"/>
+
+        <res src="pack-border.png" id="Installer.image.packspanel"/>
+        <res src="pack-border.png" id="Installer.image.summarypanel"/>
+
+        <res src="installing-border.png" id="Installer.image.installpanel"/>
+        <res src="installing-border.png" id="Installer.image.shortcutpanel"/>
+
+        <res src="finished-border.png" id="Installer.image.finishpanel"/>
+
+        <res src="RegistrySpec.xml" id="RegistrySpec.xml"/>
+    </resources>
+
+    <!-- The listeners section for CustomActions -->
+    <listeners>
+        <listener classname="SummaryLoggerInstallerListener" stage="install"/>
+        <listener classname="RegistryInstallerListener" stage="install">
+            <os family="windows"/>
+        </listener>
+        <listener classname="RegistryUninstallerListener" stage="uninstall">
+            <os family="windows"/>
+        </listener>
+    </listeners>
+
+    <!-- The panels in a classic order -->
+    <panels>
+        <panel classname="CheckedHelloPanel" id="hellopanel"/>
+        <!-- <panel classname="HTMLInfoPanel" id="infopanel" encoding="ISO-8859-1"/>-->
+        <panel classname="HTMLLicencePanel" id="licensepanel"/>
+        <panel classname="TargetPanel" id="targetpanel"/>
+        <panel classname="PacksPanel" id="packspanel"/>
+        <panel classname="SummaryPanel" id="summarypanel"/>
+        <panel classname="InstallPanel" id="installpanel"/>
+        <panel classname="ShortcutPanel" id="shortcutpanel"/>
+        <panel classname="FinishPanel" id="finishpanel"/>
+    </panels>
+
+    <!-- The packs section -->
+    <packs>
+
+        <!-- The core files -->
+        <pack name="Core" required="yes">
+            <description>The Eclipse Che files.</description>
+            <fileset dir="unpacked/assembly-sdk-${eclipse-che.version}" targetdir="$INSTALL_PATH" override="asktrue">
+            </fileset>
+            <!-- Add executable flag -->
+            <executable targetfile="$INSTALL_PATH/bin/che.sh" stage="never"/>
+        </pack>
+    </packs>
+
+    <!-- The native libraries to add -->
+    <natives>
+        <native type="izpack" name="ShellLink.dll"/>
+        <native type="izpack" name="ShellLink_x64.dll"/>
+        <native type="izpack" name="WinSetupAPI.dll"/>
+        <native type="izpack" name="WinSetupAPI_x64.dll"/>
+        <native type="3rdparty" name="COIOSHelper.dll" stage="both">
+            <os family="windows"/>
+        </native>
+        <native type="3rdparty" name="COIOSHelper_x64.dll" stage="both">
+            <os family="windows"/>
+        </native>
+    </natives>
+
+</izpack:installation>
