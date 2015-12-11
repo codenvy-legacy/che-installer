@@ -14,9 +14,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>maven-parent-pom</artifactId>
-        <groupId>org.eclipse.che.parent</groupId>
-        <version>3.7.9</version>
+        <artifactId>maven-depmgt-pom</artifactId>
+        <groupId>org.eclipse.che.depmgt</groupId>
+        <version>4.0.0-M5-SNAPSHOT</version>
     </parent>
     <groupId>com.codenvy.che.installer</groupId>
     <artifactId>eclipse-che-installer-parent</artifactId>
@@ -25,8 +25,6 @@
     <name>Eclipse Che Installer</name>
     <modules>
         <module>eclipse-che-installer-izpack</module>
-        <module>eclipse-che-installer-izpack-windows</module>
-        <module>eclipse-che-installer-innosetup-windows</module>
     </modules>
     <scm>
         <connection>scm:git:git@github.com:codenvy/che-installer.git</connection>
@@ -35,7 +33,7 @@
         <url>https://github.com/codenvy/che-installer</url>
     </scm>
     <properties>
-        <eclipse-che.version>3.12.5.2</eclipse-che.version>
+        <eclipse-che.version>${che.sdk.version}</eclipse-che.version>
         <license_years>2015</license_years>
     </properties>
     <repositories>
