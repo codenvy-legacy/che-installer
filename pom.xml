@@ -20,7 +20,6 @@
     </parent>
     <groupId>com.codenvy.che.installer</groupId>
     <artifactId>eclipse-che-installer-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Eclipse Che Installer</name>
     <modules>
