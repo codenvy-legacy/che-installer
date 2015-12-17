@@ -32,7 +32,7 @@
         <url>https://github.com/codenvy/che-installer</url>
     </scm>
     <properties>
-        <eclipse-che.version>${che.sdk.version}</eclipse-che.version>
+        <eclipse-che.version>${che.ide.version}</eclipse-che.version>
         <license_years>2015</license_years>
     </properties>
     <repositories>

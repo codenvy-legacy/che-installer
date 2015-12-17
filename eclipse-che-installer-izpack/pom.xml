@@ -16,7 +16,7 @@
     <parent>
         <artifactId>eclipse-che-installer-parent</artifactId>
         <groupId>com.codenvy.che.installer</groupId>
-        <version>4.0.0-M5-SNAPSHOT</version>
+        <version>4.0.0-M6-SNAPSHOT</version>
     </parent>
     <artifactId>eclipse-che-installer-izpack</artifactId>
     <name>Eclipse Che Installer :: IzPack</name>
@@ -72,8 +72,8 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.eclipse.che.sdk</groupId>
-                                    <artifactId>assembly-sdk</artifactId>
+                                    <groupId>org.eclipse.che.ide</groupId>
+                                    <artifactId>assembly-ide</artifactId>
                                     <version>${eclipse-che.version}</version>
                                     <type>zip</type>
                                     <outputDirectory>${eclipse-che.unpacked}</outputDirectory>
