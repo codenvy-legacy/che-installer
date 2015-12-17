@@ -27,12 +27,13 @@
         <requiresjdk>no</requiresjdk>
         <run-privileged condition="izpack.windowsinstall"/>
         <summarylogfilepath>$INSTALL_PATH/installinfo/Summary.htm</summarylogfilepath>
+        <uninstaller name="uninstall.jar" path="${INSTALL_PATH}/lib" write="yes"/>
     </info>
 
     <variables>
         <variable name="DesktopShortcutCheckboxEnabled" value="true"/>
         <variable name="ApplicationShortcutPath" value="ApplicationShortcuts"/>
-        <variable name="TargetPanel.dir.windows" value="C:\eclipse-che\$APP_VER"/>
+        <variable name="TargetPanel.dir.windows" value="C:\eclipse-che-$APP_VER"/>
         <variable name="TargetPanel.dir.unix" value="/usr/local/eclipse-che-$APP_VER"/>
     </variables>
 
@@ -142,7 +143,7 @@
         <!-- The core files -->
         <pack name="Core" required="yes">
             <description>The Eclipse Che files.</description>
-            <fileset dir="unpacked/assembly-sdk-${eclipse-che.version}" targetdir="$INSTALL_PATH" override="asktrue">
+            <fileset dir="unpacked/eclipse-che-${eclipse-che.version}" targetdir="$INSTALL_PATH" override="asktrue">
             </fileset>
             <!-- Add executable flag -->
             <executable targetfile="$INSTALL_PATH/bin/che.sh" stage="never"/>
