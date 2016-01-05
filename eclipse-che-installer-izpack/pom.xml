@@ -72,8 +72,8 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.eclipse.che.ide</groupId>
-                                    <artifactId>assembly-ide</artifactId>
+                                    <groupId>org.eclipse.che</groupId>
+                                    <artifactId>assembly-main</artifactId>
                                     <version>${eclipse-che.version}</version>
                                     <type>zip</type>
                                     <outputDirectory>${eclipse-che.unpacked}</outputDirectory>
