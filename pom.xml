@@ -25,6 +25,7 @@
     <name>Eclipse Che Installer</name>
     <modules>
         <module>eclipse-che-installer-izpack</module>
+        <!-- <module>eclipse-che-installer-innosetup-windows</module> -->
     </modules>
     <scm>
         <connection>scm:git:git@github.com:codenvy/che-installer.git</connection>
