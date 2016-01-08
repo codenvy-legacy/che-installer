@@ -87,7 +87,7 @@
                             <showLogs>true</showLogs>
                             <images>
                                 <image>
-                                    <name>florentbenoit/che-installer-windows</name>
+                                    <name>codenvy/che-installer:windows</name>
                                     <run>
                                         <cmd>target/classes/che.iss</cmd>
                                         <volumes>
@@ -120,7 +120,7 @@
                         <configuration>
                             <images>
                                 <image>
-                                    <name>florentbenoit/che-installer-windows</name>
+                                    <name>codenvy/che-installer:windows</name>
                                     <run>
                                         <wait>
                                             <log>Successful compile</log>
