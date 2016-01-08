@@ -145,7 +145,7 @@
                                 <image>
                                     <name>sporsh/osslsigncode</name>
                                     <run>
-                                        <cmd>sign -pkcs12 /user/src/main/ksign/che-dummy.pfx -n "EclipseCheSign" -i http://www.eclipseche.org -in /user/target/eclipse-che.exe -out /user/target/eclipse-che-signed.exe</cmd>
+                                        <cmd>sign -pkcs12 /user/src/main/ksign/che-dummy.pfx -n "EclipseCheSign" -i http://www.eclipseche.org -in /user/target/eclipse-che.exe -out /user/target/eclipse-che-${eclipse-che.version}.exe</cmd>
                                         <volumes>
                                             <bind>
                                                 <volume>${project.basedir}:/user</volume>
