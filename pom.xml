@@ -16,11 +16,11 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>org.eclipse.che.depmgt</groupId>
-        <version>4.0.0-beta-13</version>
+        <version>4.0.0-beta-13-1</version>
     </parent>
     <groupId>com.codenvy.che.installer</groupId>
     <artifactId>eclipse-che-installer-parent</artifactId>
-    <version>4.0.0-beta-13</version>
+    <version>4.0.0-beta-13-1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Eclipse Che Installer</name>
     <modules>
