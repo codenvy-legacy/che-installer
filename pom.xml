@@ -34,7 +34,7 @@
         <url>https://github.com/codenvy/che-installer</url>
     </scm>
     <properties>
-        <eclipse-che.version>${che.version}</eclipse-che.version>
+        <eclipse-che.version>${project.parent.version}</eclipse-che.version>
     </properties>
     <repositories>
         <repository>
