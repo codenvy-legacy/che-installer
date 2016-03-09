@@ -16,7 +16,7 @@
     <parent>
         <artifactId>eclipse-che-installer-parent</artifactId>
         <groupId>com.codenvy.che.installer</groupId>
-        <version>4.0.0-RC13</version>
+        <version>4.0.0-RC14-SNAPSHOT</version>
     </parent>
     <artifactId>eclipse-che-installer-izpack</artifactId>
     <name>Eclipse Che Installer :: IzPack</name>
