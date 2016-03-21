@@ -12,7 +12,7 @@ RUN mkdir /opt/jre-windows && wget -O- --local-encoding=UTF-8 --no-check-certifi
 ENV GIT_VERSION 2.7.0
 RUN mkdir /opt/git && wget -O /opt/git/git-setup.exe --local-encoding=UTF-8 --no-check-certificate https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/Git-$GIT_VERSION-64-bit.exe
 
-ENV DOCKER_VERSION 1.9.1g
+ENV DOCKER_VERSION 1.10.3
 RUN mkdir /opt/docker &&  wget --local-encoding=UTF-8 --no-check-certificate -O /opt/docker/docker-setup.exe https://github.com/docker/toolbox/releases/download/v$DOCKER_VERSION/DockerToolbox-$DOCKER_VERSION.exe
 
 WORKDIR /user
