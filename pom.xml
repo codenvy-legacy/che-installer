@@ -20,7 +20,7 @@
     </parent>
     <groupId>com.codenvy.che.installer</groupId>
     <artifactId>eclipse-che-installer-parent</artifactId>
-    <version>5.0.0-M2-SNAPSHOT</version>
+    <version>5.0.0-M2</version>
     <packaging>pom</packaging>
     <name>Eclipse Che Installer</name>
     <modules>
@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:git:git@github.com:codenvy/che-installer.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/che-installer.git</developerConnection>
-        <tag>5.0.0-M1</tag>
+        <tag>5.0.0-M2</tag>
         <url>https://github.com/codenvy/che-installer</url>
     </scm>
     <properties>
