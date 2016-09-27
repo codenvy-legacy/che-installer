@@ -16,11 +16,11 @@
     <parent>
         <artifactId>che-parent</artifactId>
         <groupId>org.eclipse.che</groupId>
-        <version>5.0.0-M3</version>
+        <version>5.0.0-M4</version>
     </parent>
     <groupId>com.codenvy.che.installer</groupId>
     <artifactId>eclipse-che-installer-parent</artifactId>
-    <version>5.0.0-M3</version>
+    <version>5.0.0-M4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Eclipse Che Installer</name>
     <modules>
