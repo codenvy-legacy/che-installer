@@ -16,7 +16,7 @@
     <parent>
         <artifactId>eclipse-che-installer-parent</artifactId>
         <groupId>com.codenvy.che.installer</groupId>
-        <version>5.0.0-M6</version>
+        <version>5.0.0-M7-SNAPSHOT</version>
     </parent>
     <artifactId>eclipse-che-installer-izpack</artifactId>
     <name>Eclipse Che Installer :: IzPack</name>
