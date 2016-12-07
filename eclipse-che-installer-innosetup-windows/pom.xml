@@ -16,7 +16,7 @@
     <parent>
         <artifactId>eclipse-che-installer-parent</artifactId>
         <groupId>com.codenvy.che.installer</groupId>
-        <version>5.0.0-M8</version>
+        <version>5.0.0-M9-SNAPSHOT</version>
     </parent>
     <artifactId>eclipse-che-installer-innosetup-windows</artifactId>
     <name>Eclipse Che Installer :: Inno Setup Windows Installer</name>
