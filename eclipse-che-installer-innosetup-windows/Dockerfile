@@ -1,19 +1,36 @@
-FROM debian:jessie
-RUN dpkg --add-architecture i386 && apt-get update && apt-get install -yq wine wget innoextract wine32 && apt-get clean
+FROM ubuntu:16.04
+RUN apt-get update && apt-get install -yq wget curl git innoextract software-properties-common && apt-get clean
 RUN wget http://files.jrsoftware.org/is/5/isetup-5.5.5-unicode.exe && innoextract -d /inno /isetup-5.5.5-unicode.exe
 
-ENV JAVA_VERSION_MAJOR 8
-ENV JAVA_VERSION_MINOR 66
-ENV JAVA_VERSION_BUILD 18
+RUN curl -sL https://deb.nodesource.com/setup_5.x | bash - && \
+    dpkg --add-architecture i386 && \
+    add-apt-repository ppa:ubuntu-wine/ppa && \
+    apt-get update && \
+    apt-get install -y nodejs wine1.8 winetricks && \
+    apt-get clean && \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    useradd -u 1000 -G users,sudo -d /user --shell /bin/bash -m user && \
+    echo "secret\nsecret" | passwd user
 
-RUN mkdir /opt/jre-windows && wget -O- --local-encoding=UTF-8 --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/jre-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-windows-x64.tar.gz \
-                                  | tar -zx --strip-components=1 -C /opt/jre-windows
+RUN mkdir /opt/docker &&  wget --local-encoding=UTF-8 --no-check-certificate -O /opt/docker/InstallDocker.msi https://download.docker.com/win/stable/InstallDocker.msi
 
-ENV GIT_VERSION 2.7.0
-RUN mkdir /opt/git && wget -O /opt/git/git-setup.exe --local-encoding=UTF-8 --no-check-certificate https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/Git-$GIT_VERSION-64-bit.exe
+ADD ./id_rsa /user/.ssh/id_rsa
 
-ENV DOCKER_VERSION 1.10.3
-RUN mkdir /opt/docker &&  wget --local-encoding=UTF-8 --no-check-certificate -O /opt/docker/docker-setup.exe https://github.com/docker/toolbox/releases/download/v$DOCKER_VERSION/DockerToolbox-$DOCKER_VERSION.exe
+RUN chmod 600 /user/.ssh/*
+RUN chown -R user:user /user/.ssh/*
+RUN ssh-keyscan -t rsa github.com >> /user/.ssh/known_hosts
 
+RUN npm install electron-packager -g
+
+USER user
 WORKDIR /user
+
+# Clone electron into the docker container
+RUN git clone git@github.com:codenvy/che-electron.git
+
+WORKDIR /user/che-electron
+RUN npm install
+RUN npm run dist
+
+WORKDIR /che
 ENTRYPOINT ["wine", "/inno/app/ISCC.exe", "/Otarget"]

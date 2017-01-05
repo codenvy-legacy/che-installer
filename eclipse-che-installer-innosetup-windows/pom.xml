@@ -20,9 +20,6 @@
     </parent>
     <artifactId>eclipse-che-installer-innosetup-windows</artifactId>
     <name>Eclipse Che Installer :: Inno Setup Windows Installer</name>
-    <properties>
-        <eclipse-che.unpacked>${project.build.directory}/eclipse-che</eclipse-che.unpacked>
-    </properties>
     <build>
         <resources>
             <resource>
@@ -49,33 +46,29 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>Unpack Eclipse Che</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.eclipse.che</groupId>
-                                    <artifactId>assembly-main</artifactId>
-                                    <version>${eclipse-che.version}</version>
-                                    <type>zip</type>
-                                    <outputDirectory>${eclipse-che.unpacked}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jolokia</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.13.3</version>
+                <version>0.13.9</version>
                 <executions>
+                    <execution>
+                        <id>docker:build</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>codenvy/che-installer:windows</name>
+                                    <build>
+                                        <assembly>
+                                            <dockerFileDir>${project.basedir}</dockerFileDir>
+                                        </assembly>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>start-create-exe</id>
                         <phase>process-resources</phase>
@@ -92,7 +85,7 @@
                                         <cmd>target/classes/che.iss</cmd>
                                         <volumes>
                                             <bind>
-                                                <volume>${project.basedir}:/user</volume>
+                                                <volume>${project.basedir}:/che</volume>
                                             </bind>
                                         </volumes>
                                         <wait>
@@ -145,10 +138,10 @@
                                 <image>
                                     <name>sporsh/osslsigncode</name>
                                     <run>
-                                        <cmd>sign -pkcs12 /user/src/main/ksign/che-dummy.pfx -n "EclipseCheSign" -i http://www.eclipseche.org -in /user/target/eclipse-che.exe -out /user/target/eclipse-che-${eclipse-che.version}.exe</cmd>
+                                        <cmd>sign -pkcs12 /che/src/main/ksign/che-dummy.pfx -n "EclipseCheSign" -i http://www.eclipseche.org -in /che/target/eclipse-che.exe -out /che/target/eclipse-che-${eclipse-che.version}.exe</cmd>
                                         <volumes>
                                             <bind>
-                                                <volume>${project.basedir}:/user</volume>
+                                                <volume>${project.basedir}:/che</volume>
                                             </bind>
                                         </volumes>
                                         <wait>

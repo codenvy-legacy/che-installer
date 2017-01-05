@@ -2,250 +2,91 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Eclipse Che"
+
 #define MyAppVersion "${eclipse-che.version}"
-#define MyAppPublisher "Codenvy SAS"
-#define MyAppURL "https://www.eclipse.org/che/"
-#define MyAppExeName "MyProg-x64.exe"
+#define MyAppPublisher "Codenvy"
+#define MyAppURL "http://www.eclipse.org/che/"
+#define MyAppExeName "eclipse-che.exe"
+#define MyAppIcoName "che.ico"
 
-#define chePath "Z:\user\target\eclipse-che\eclipse-che-${eclipse-che.version}"
-#define jrePath "Z:\opt\jre-windows"
-#define dockerSetup "Z:\opt\docker\docker-setup.exe"
-#define gitSetup "Z:\opt\git\git-setup.exe"
-
+#define cheElectronWinPath "Z:\user\che-electron\dist\win-unpacked"
+#define dockerInstaller "Z:\opt\docker\InstallDocker.msi"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{2E0D9565-D814-4506-9906-ED568A32FB72}
+AppId={{76016B35-926B-4D3C-93BE-1FAEFBBB100E}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-AppVerName={#MyAppName} {#MyAppVersion}
+;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright {#MyAppPublisher}
-DefaultDirName={userpf}\Eclipse Che\eclipse-che-{#MyAppVersion}
-DefaultGroupName={#MyAppName}
-AllowNoIcons=yes
-LicenseFile=resources\eclipse-license.rtf
-; InfoBeforeFile=resources\install-readme.html
-; InfoAfterFile=resources\install-readme.html
+DefaultDirName={pf}\EclipseChe
+DisableDirPage=no
+DisableProgramGroupPage=yes
 OutputBaseFilename=eclipse-che
-Compression=lzma2/ultra64
-LZMAUseSeparateProcess=yes
-; LZMANumBlockThreads=2
-InternalCompressLevel=max
+Compression=lzma
 SolidCompression=yes
+ArchitecturesAllowed=x64 ia64
+ArchitecturesInstallIn64BitMode=x64 ia64
 
-VersionInfoVersion=4.0.0.0
-VersionInfoCompany={#MyAppPublisher}
-VersionInfoDescription={#MyAppName} {#MyAppVersion}
-VersionInfoTextVersion={#MyAppVersion}
-VersionInfoCopyright=Copyright {#MyAppPublisher}, All Rights Reserved.
+DisableWelcomePage=no
+LicenseFile=resources\eclipse-license.rtf
 
-ArchitecturesAllowed=x64
-ArchitecturesInstallIn64BitMode=x64
-; Reload as we update ENV variables
-ChangesEnvironment=yes
-
-UninstallDisplayIcon={app}\unins000.exe
 SetupIconFile=resources\che.ico
 WizardImageFile=resources\wizard.bmp
-WizardSmallImageFile=resources\small.bmp
+WizardSmallImageFile=resources\che-logo.bmp
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
-Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
-Name: "catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
-Name: "corsican"; MessagesFile: "compiler:Languages\Corsican.isl"
-Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
-Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
-Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
-Name: "finnish"; MessagesFile: "compiler:Languages\Finnish.isl"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-Name: "greek"; MessagesFile: "compiler:Languages\Greek.isl"
-Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
-Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
-Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
-Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
-Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
-Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-Name: "scottishgaelic"; MessagesFile: "compiler:Languages\ScottishGaelic.isl"
-Name: "serbiancyrillic"; MessagesFile: "compiler:Languages\SerbianCyrillic.isl"
-Name: "serbianlatin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
-Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
-Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
-Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
-Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
-[Types]
-Name: "full"; Description: "Full installation"
-Name: "custom"; Description: "Custom installation"; Flags: iscustom
-
-
-[Components]
-Name: "che"; Description: "Che core"; Types: custom full; Flags: fixed
-Name: "jre"; Description: "Java JRE used to run Eclipse Che"; Types: custom full
-Name: "git"; Description: "Git required to clone projects"; Types: custom full
-Name: "docker"; Description: "Docker runtime used to start applications"; Types: custom full
-
+[Messages]
+FinishedLabel=Setup has finished installing [name] on your computer.%nThe application may be launched by selecting the installed shortcuts.%n%nPlease make sure that the docker is running and drive C is shared in Docker for Windows Settings. 
 
 [Tasks]
-Name: "setupEnv"; Description: "Setup ENV variables required for Eclipse Che";
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; 
 
 [Files]
-Source: "{#chePath}\*"; DestDir: "{app}"; Flags: recursesubdirs ignoreversion; Components: che
-Source: "{#jrePath}\*"; DestDir: "{app}\tools\jre"; Flags: recursesubdirs createallsubdirs ignoreversion; Components: jre
-Source: "{#gitSetup}"; DestDir: "{tmp}\che-install\git"; DestName: "git-setup.exe"; AfterInstall: InstallGit; Flags: deleteafterinstall ignoreversion; Components: git
-Source: "{#dockerSetup}"; DestDir: "{tmp}\che-install\docker"; DestName: "docker-setup.exe"; AfterInstall: InstallDocker; Flags: deleteafterinstall ignoreversion; Components: docker
-Source: "Z:\user\target\classes\resources\che.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#dockerInstaller}"; DestDir: "{tmp}"; Flags: nocompression dontcopy
+Source: "{#cheElectronWinPath}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "resources\che.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
-Name: "{group}\Start server of {#MyAppName} "; Filename: "{app}\bin\che.bat"; WorkingDir: "{app}"; Parameters: "run"; IconFilename: "{app}/che.ico";
-Name: "{group}\Stop server of {#MyAppName} "; Filename: "{app}\bin\che.bat"; WorkingDir: "{app}"; Parameters: "stop" ; IconFilename: "{app}/che.ico";
-Name: "{group}\Open {#MyAppName} in browser"; Filename: "http://localhost:8080"
+Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; 
+Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Code]
-
-
-function GetHKLM: Integer;
+function IsDockerInstalled: boolean;
 begin
-  if IsWin64 then
-    Result := HKLM64
-  else
-    Result := HKLM32;
-end;
+  try
+    result := RegKeyExists(HKLM, 'SOFTWARE\Docker Inc.\Docker\1.0');
+  except
+    msgbox('Can not check whether the docker is installed. Make sure that the docker is installed. '#13#10, mberror, MB_OK);
+  end;
+end; 
 
-
-// Register the given name/value as Environment variable
-procedure AddEnvVariable(Name:String; Value: String);
+function PrepareToInstall(var NeedsRestart: Boolean): String;
 var
-	CurrentValue: String;
+  ResultCode: Integer;
 begin
-if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment\', Name, CurrentValue) then
+  if not IsDockerInstalled() then
     begin
-		RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment\', Name, Value);
-    end;
-
-end;
-
-
-procedure AddItemToPath(Item: String);
-var
-    Index: Integer;
-	Path: String;
-begin
-if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment\', 'Path', Path) then
-    begin
-       	Index := Pos(Item, Path);
-		Path := Path + ';' + Item;
-		// If not already there, add new variable in the path
-		if Index = 0 then
-			RegWriteStringValue(HKEY_LOCAL_MACHINE, 'SYSTEM\CurrentControlSet\Control\Session Manager\Environment\', 'Path', Path);
-    end;
-
-
-end;
-
-
-procedure ConfigureEnvironment;
-var
-   InstallGitLocation, Folder, JRE: String;
-begin
-	RegQueryStringValue(GetHKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Git_is1', 'InstallLocation', InstallGitLocation);
-	if Length(InstallGitLocation) > 0 then
-	   begin
-  			AddItemToPath(InstallGitLocation + 'bin');
-  		end;
-
-	// Add JRE directory to path
-	Folder := ExpandConstant('{app}');
-	JRE := Folder + '\tools\jre\';
-
-	if DirExists(JRE) then
-		begin
-			AddItemToPath(JRE + 'bin');
-			AddEnvVariable('JAVA_HOME', JRE);
-		end;
-
-
+      ExtractTemporaryFile('InstallDocker.msi');
+      MsgBox('{#MyAppName} requires Docker 1.8+. The installer will attempt to install it', mbInformation, MB_OK);
+            
+      if not ShellExec('',ExpandConstant('{tmp}\InstallDocker.msi'),'/norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+        MsgBox('Docker installer failed to run!' + #13#10 + SysErrorMessage(ResultCode), mbError, MB_OK);
+      end;
 end;
 
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
-	if CurStep = ssPostInstall then
-		if IsTaskSelected('setupEnv') then
-			ConfigureEnvironment;
+  if (CurStep=ssInstall) and (not IsDockerInstalled()) then 
+    begin
+      MsgBox('The Docker is not installed. Installation will be terminated.', mbError, MB_OK)
+      Abort();
+    end;
 end;
-
-
-
-{Check if Git has been installed or not}
-function RequireInstallGit: Boolean;
-var
-   InstallLocation: String;
-begin
-	RegQueryStringValue(GetHKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Git_is1', 'InstallLocation', InstallLocation);
-	if Length(InstallLocation) = 0 then
-  		Result := True
-	else
-   		Result := False;
-end;
-
-
-{Check if Docker has been installed or not}
-function RequireInstallDocker: Boolean;
-var
-   InstallLocation: String;
-begin
-	RegQueryStringValue(GetHKLM, 'SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{FC4417F0-D7F3-48DB-BCE1-F5ED5BAFFD91}_is1', 'InstallLocation', InstallLocation);
-	if Length(InstallLocation) = 0 then
-  		Result := True
-	else
-   		Result := False;
-end;
-
-
-procedure InstallGit;
-var
-	ResultCode: Integer;
-begin
-	WizardForm.FilenameLabel.Caption := 'Install Git...';
-	if not Exec(ExpandConstant('{tmp}\che-install\git\git-setup.exe'), '/verysilent /sp- /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
-	begin
-		MsgBox('Unable to install the git tool', mbInformation, MB_OK);
-	end;
-end;
-
-procedure InstallDocker;
-var
-	ResultCode: Integer;
-begin
-	WizardForm.FilenameLabel.Caption := 'Install Docker...'
-	if not Exec(ExpandConstant('{tmp}\che-install\docker\docker-setup.exe'), '/verysilent /sp- /COMPONENTS="Docker,DockerMachine,VirtualBox" /norestart', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
-	begin
-		MsgBox('Unable to install the docker tool', mbInformation, MB_OK);
-	end;
-end;
-
-
-
-procedure InitializeWizard;
-var
-   EnableGit: Boolean;
-   EnableDocker: Boolean;
-
-begin
-	EnableGit := RequireInstallGit;
-	EnableDocker := RequireInstallDocker;
-	Wizardform.ComponentsList.Checked[2] := EnableGit;
-	Wizardform.ComponentsList.ItemEnabled[2] := EnableGit;
-	Wizardform.ComponentsList.Checked[3] := EnableDocker;
-	Wizardform.ComponentsList.ItemEnabled[3] := EnableDocker;
-end;
-
