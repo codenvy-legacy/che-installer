@@ -51,25 +51,6 @@
                 <version>0.13.9</version>
                 <executions>
                     <execution>
-                        <id>docker:build</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                        <configuration>
-                            <images>
-                                <image>
-                                    <name>codenvy/che-installer:windows</name>
-                                    <build>
-                                        <assembly>
-                                            <dockerFileDir>${project.basedir}</dockerFileDir>
-                                        </assembly>
-                                    </build>
-                                </image>
-                            </images>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>start-create-exe</id>
                         <phase>process-resources</phase>
                         <goals>

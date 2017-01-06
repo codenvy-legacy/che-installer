@@ -1,4 +1,7 @@
 FROM ubuntu:16.04
+ARG CHE_ELECTRON_TAG
+ENV CHE_ELECTRON_TAG ${CHE_ELECTRON_TAG:-master}
+
 RUN apt-get update && apt-get install -yq wget curl git innoextract software-properties-common && apt-get clean
 RUN wget http://files.jrsoftware.org/is/5/isetup-5.5.5-unicode.exe && innoextract -d /inno /isetup-5.5.5-unicode.exe
 
@@ -26,7 +29,7 @@ USER user
 WORKDIR /user
 
 # Clone electron into the docker container
-RUN git clone git@github.com:codenvy/che-electron.git
+RUN git clone --branch $CHE_ELECTRON_TAG git@github.com:codenvy/che-electron.git
 
 WORKDIR /user/che-electron
 RUN npm install
